@@ -9,6 +9,7 @@ public class DamageServiceTests
     private static Character CreateCharacter(int health, int damage, int armor)
     {
         var c = new Character();
+        c.Name.Value = Guid.NewGuid().ToString();
         c.Health.Value = health;
         c.Damage.Value = damage;
         c.Armor.Value = armor;
