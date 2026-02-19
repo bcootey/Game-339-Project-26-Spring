@@ -1,3 +1,4 @@
+using System;
 using Game339.Shared.Services.Implementation;
 using NUnit.Framework;
 
@@ -13,23 +14,25 @@ public class StringServiceTests
         _svc = new StringService(EmptyGameLog.Instance);
     }
 
-    [TestCase("hello", "olleh")]
-    [TestCase("", "")]
-    [TestCase("a", "a")]
-    [TestCase("racecar", "racecar")]
-    public void Reverse_ReturnsExpectedString(string input, string expected)
+    [TestCase("hello", "hello")]                 // single word stays the same
+    [TestCase("", "")]                           // empty stays empty
+    [TestCase("a", "a")]                         // single word stays the same
+    [TestCase("racecar", "racecar")]             // single word stays the same
+    [TestCase("hello world", "world hello")]     // two words swap
+    [TestCase("one two three", "three two one")] // multiple words reverse
+    public void ReverseWords_ReturnsExpectedString(string input, string expected)
     {
         // Act
-        var result = _svc.Reverse(input);
+        var result = _svc.ReverseWords(input);
 
         // Assert
         Assert.That(result, Is.EqualTo(expected));
     }
 
     [Test]
-    public void Reverse_NullString_ThrowsArgumentNullException()
+    public void ReverseWords_NullString_ThrowsArgumentNullException()
     {
         // Act & Assert
-        Assert.Throws<System.ArgumentNullException>(() => _svc.Reverse(null));
+        Assert.Throws<ArgumentNullException>(() => _svc.ReverseWords(null));
     }
 }
